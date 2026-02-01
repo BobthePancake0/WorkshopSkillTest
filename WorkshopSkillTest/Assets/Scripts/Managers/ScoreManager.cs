@@ -7,6 +7,8 @@ public  class ScoreManager : MonoBehaviour
     private int totalPoints = 0;
 
 
+    [SerializeField] private Hud hud;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,6 +25,7 @@ public  class ScoreManager : MonoBehaviour
     {
         totalPoints += pointValue;
         Debug.Log(totalPoints);
+        hud.updatePointScore();
     }
 
     public int getPoints()
