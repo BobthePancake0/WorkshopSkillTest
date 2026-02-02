@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1921159532612045779}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5479417328094166018}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 913f956f013d3534fb0e4fad7df4875b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -161,7 +161,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1921159532612045779
 MonoBehaviour:
