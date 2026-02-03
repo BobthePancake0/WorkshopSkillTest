@@ -30,15 +30,19 @@ public class BoxSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (coolDown >= maxSpawnRate)
+        if (!GameManager.Instance.isGameOver())
         {
-            FireBox();
-            spawnRate = UnityEngine.Random.Range(minSpawnRate, maxSpawnRate);
-            coolDown = 0;
+        
+            if (coolDown >= maxSpawnRate)
+            {
+                FireBox();
+                spawnRate = UnityEngine.Random.Range(minSpawnRate, maxSpawnRate);
+                coolDown = 0;
+            }
+            else
+                coolDown += 0.1f;
+                
         }
-        else
-            coolDown += 0.1f;
     }
 
 

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hud : MonoBehaviour
@@ -9,16 +10,29 @@ public class Hud : MonoBehaviour
     [Header("Timer")]
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float remainingTime;
+    [SerializeField] private GameObject gameoverScreen;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         pointsText.text = "0";
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        updateTimerText();
+        if (!GameManager.Instance.isGameOver())
+        {
+
+            if (remainingTime <= 0)
+            {
+                gameoverScreen.SetActive(true);
+                GameManager.Instance.GameOver();
+            }
+
+            updatePointScore();
+            updateTimerText();
+        }
     }
 
     public void updatePointScore()

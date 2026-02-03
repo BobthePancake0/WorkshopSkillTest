@@ -35,14 +35,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        ProcessGravity();
-        ProcessKnockback();
-        // Moves the character controller based on the playerVelocity dictated from the context function
-        controller.Move(transform.TransformDirection(playerVelocity) * speed * Time.deltaTime);
+        if (!GameManager.Instance.isGameOver())
+        {            
 
-        
-        // Checks if the character controller is on the ground
-        isGrounded = controller.isGrounded;
+            ProcessGravity();
+            ProcessKnockback();
+            // Moves the character controller based on the playerVelocity dictated from the context function
+            controller.Move(transform.TransformDirection(playerVelocity) * speed * Time.deltaTime);
+
+            
+            // Checks if the character controller is on the ground
+            isGrounded = controller.isGrounded;
+        }
         
     
 
@@ -58,17 +62,21 @@ public class PlayerController : MonoBehaviour
     */
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!GameManager.Instance.isGameOver())
         {
-            Vector2 input = context.ReadValue<Vector2>();
             
-            playerVelocity.x = input.x;
-            playerVelocity.z = input.y;
+            if (context.performed)
+            {
+                Vector2 input = context.ReadValue<Vector2>();
+                
+                playerVelocity.x = input.x;
+                playerVelocity.z = input.y;
 
+            }
+
+            if (context.canceled)
+                playerVelocity =  new Vector3(0f, playerVelocity.y, 0f);
         }
-
-        if (context.canceled)
-            playerVelocity =  new Vector3(0f, playerVelocity.y, 0f);
 
 
     }
@@ -106,36 +114,22 @@ public class PlayerController : MonoBehaviour
     */
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded)
+        if (!GameManager.Instance.isGameOver())
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-        }
-        
-        if (context.canceled && !isGrounded)
-        {
-            playerVelocity.y *= 0.5f;
+            
+            if (context.performed && isGrounded)
+            {
+                playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            }
+            
+            if (context.canceled && !isGrounded)
+            {
+                playerVelocity.y *= 0.5f;
+            }
         }
     }
 
 
-    void OnCollisionEnter(Collision collision)
-    {
-        
-        //Rigidbody rb = hit.collider.attachedRigidbody;
-
-        // if (rb == null || rb.isKinematic)
-        //     return;
-
-        // if (hit.gameObject.tag == "Box")
-        // {
-        //     Vector3 forceDirection = -hit.moveDirection;
-        //     forceDirection.y = 0;
-
-        //     pushDirection = forceDirection.normalized * knockbackForce;
-        //     Debug.Log("Player hit by box!");
-        //     //body.AddForce(pushDirection * knockbackForce);
-        // }
-    }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rb = hit.collider.attachedRigidbody;

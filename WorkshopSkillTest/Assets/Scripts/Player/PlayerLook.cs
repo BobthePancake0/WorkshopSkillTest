@@ -25,7 +25,10 @@ public class PlayerLook : MonoBehaviour
     */
     public void OnLook(InputAction.CallbackContext context)
     {
-        lookInput = context.ReadValue<Vector2>();
+        if (!GameManager.Instance.isGameOver())
+        {
+            lookInput = context.ReadValue<Vector2>();
+        }
     }
 
     /*
