@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5107266743063178085}
   - component: {fileID: 813525238266315211}
   - component: {fileID: 1823547065862321002}
-  - component: {fileID: 5276640878145656734}
+  - component: {fileID: 3780799322110676903}
   - component: {fileID: 1215400137989759022}
   - component: {fileID: 8525327715586679952}
   m_Layer: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!143 &5276640878145656734
+--- !u!143 &3780799322110676903
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,7 +272,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.01
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1215400137989759022
 MonoBehaviour:
@@ -289,6 +289,7 @@ MonoBehaviour:
   speed: 5
   gravity: -9.8
   jumpHeight: 0.75
+  knockbackForce: 3
 --- !u!114 &8525327715586679952
 MonoBehaviour:
   m_ObjectHideFlags: 0

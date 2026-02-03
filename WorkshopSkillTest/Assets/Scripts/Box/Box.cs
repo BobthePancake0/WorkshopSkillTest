@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Box : MonoBehaviour
 {
@@ -33,25 +35,7 @@ public class Box : MonoBehaviour
         }
     }
 
-    // void CheckIfPlayerAbove()
-    // {
-        
 
-        
 
-    //     if (Physics.Raycast(origin, direction, out hit, maxDistance))
-    //     {
-    //         if (hit.collider.gameObject.tag == "Player")
-    //         {
-    //             Debug.Log("Player jumped over the object!");
-    //             ScoreManager.Instance.addPoints(pointValue);
-    //         }
-    //     }
-    // }
 
-    // void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.red;
-    //     Gizmos.DrawRay(origin, direction * maxDistance);
-    // }
 }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
 
     private CharacterController controller;
+    private Rigidbody body;
+
     private Vector3 playerVelocity = Vector3.zero;
 
     [SerializeField] private float speed = 5f;
@@ -13,13 +16,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -9.8f;
 
     [SerializeField] private float jumpHeight = 3f;
-    
+
+    [Header("Knockback")]
+    [SerializeField] private float knockbackForce = 3f;
+    private Vector3 pushDirection;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // Grabs the first character controller component attached to the player
         controller = GetComponent<CharacterController>();
+        body = GetComponent<Rigidbody>();
+
 
     }
 
@@ -28,9 +36,10 @@ public class PlayerController : MonoBehaviour
     {
 
         ProcessGravity();
-
+        ProcessKnockback();
         // Moves the character controller based on the playerVelocity dictated from the context function
         controller.Move(transform.TransformDirection(playerVelocity) * speed * Time.deltaTime);
+
         
         // Checks if the character controller is on the ground
         isGrounded = controller.isGrounded;
@@ -108,5 +117,56 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    void OnCollisionEnter(Collision collision)
+    {
+        
+        //Rigidbody rb = hit.collider.attachedRigidbody;
+
+        // if (rb == null || rb.isKinematic)
+        //     return;
+
+        // if (hit.gameObject.tag == "Box")
+        // {
+        //     Vector3 forceDirection = -hit.moveDirection;
+        //     forceDirection.y = 0;
+
+        //     pushDirection = forceDirection.normalized * knockbackForce;
+        //     Debug.Log("Player hit by box!");
+        //     //body.AddForce(pushDirection * knockbackForce);
+        // }
+    }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody rb = hit.collider.attachedRigidbody;
+
+        if (rb == null || rb.isKinematic)
+            return;
+
+        if (hit.gameObject.tag == "Box")
+        {
+            Vector3 forceDirection = -hit.moveDirection;
+            forceDirection.y = 0;
+
+            pushDirection = forceDirection.normalized * knockbackForce;
+            Debug.Log("Player hit by box!");
+            //body.AddForce(pushDirection * knockbackForce);
+        }
+    }
+
+    private void ProcessKnockback()
+    {
+        if (pushDirection != Vector3.zero)
+        {
+            controller.Move(pushDirection * Time.deltaTime);
+            pushDirection = Vector3.Lerp(pushDirection, Vector3.zero, Time.deltaTime);
+            
+        }
+    }
+
+    public void setPushDirection(Vector3 newPush)
+    {
+        pushDirection = newPush;
+    }
 
 }
