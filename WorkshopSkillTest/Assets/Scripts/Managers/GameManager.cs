@@ -10,13 +10,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!gameOver)
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                RestartLevel();
-            }
-        }
+
+
     }
     private void Awake()
     {
